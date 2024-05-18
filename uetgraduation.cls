@@ -167,13 +167,15 @@
 	}
 \fi}
 \setcounter{tocdepth}{3}
-\newcommand\@contentlisting[2]{%
-	\if@incontentlisting\else\PackageError{uetgraduation}{Content listing not in \`contentlisting\` environment.}{
+\newenvironment{contentlistingsection}[1]{%
+	\if@incontentlisting\else\PackageError{uetgraduation}{
+		Content listing section not in \`contentlisting\` environment.
+	}{
 		To ensure consistency, place all content listing sections into the \`contentlisting\` environment.
 	}\fi%
-	\noindent\Large\textbf{#1}\par\vspace{1cm}\normalsize\@starttoc{#2}
-}
-\newcommand\tableofcontents{\@contentlisting{Mục lục}{toc}\clearpage}
+	\noindent\Large\textbf{#1}\par\vspace{1cm}\normalsize
+}{\clearpage}
+\newcommand\tableofcontents{\begin{contentlistingsection}{Mục lục}\@starttoc{toc}\end{contentlistingsection}}
 \newcommand*\l@chapter{\@tocline{1}{0cm}}
 \newcommand*\l@section{\@tocline{2}{1cm}}
 \newcommand*\l@subsection{\@tocline{3}{2cm}}
@@ -206,7 +208,7 @@
 		\stepcounter{#1}\addcontentsline{#3}{#1}{\protect\numberline{#2 \csname the#1\endcsname.}{##1}}%
 		#2 \csname the#1\endcsname. ##1%
 	}
-	\newcommand #4{\@contentlisting{#5}{#3}}
+	\newcommand #4{\begin{contentlistingsection}{#5}\@starttoc{#3}\end{contentlistingsection}}
 	\expandafter\newcommand\expandafter*\csname l@#1\endcsname{\@tocline{1}{0cm}}
 }
 \makeattachmenttype{figure}{Hình}{lof}{\listoffigures}{Danh sách hình vẽ}

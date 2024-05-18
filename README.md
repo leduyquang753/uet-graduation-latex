@@ -84,14 +84,24 @@ Trong môi trường `contentlisting`, gọi các lệnh để đặt mục lụ
 - `\listoffigures`: Danh sách hình vẽ.
 - `\listoftables`: Danh sách bảng.
 - Các lệnh đặt danh sách khác cho các kiểu đính kèm tự định nghĩa (trình bày ở phía sau).
+- Các phần liệt kê khác như danh sách từ viết tắt, đặt trong môi trường `contentlistingsection` với một tham trị là tiêu
+  đề của danh sách.
 
 Ví dụ:
 
 ```latex
 \begin{contentlisting}
+
 \tableofcontents
 \listoffigures
 \listoftables
+
+\begin{contentlistingsection}{Các từ viết tắt}
+CRC: cyclic redundancy check -- mã kiểm tra dạng vòng.
+
+DES: data encryption standard -- chuẩn mã hóa dữ liệu cũ của NSA.
+\end{contentlistingsection}
+
 \end{contentlisting}
 ```
 
