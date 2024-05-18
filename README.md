@@ -30,7 +30,7 @@ Nếu cần có thêm trang phụ bìa bằng tiếng Anh (sinh viên CLC), gọ
 
 Khi đó, một trang phụ bìa tiếng Anh sẽ tự động được tạo ra.
 
-Sau khi đặt các thông tin, gọi lệnh `\makecovers` để tạo các trang phụ bìa.
+Sau khi đặt các thông tin, gọi lệnh `\makecovers` để tạo các trang bìa và phụ bìa.
 
 Ví dụ:
 
@@ -59,14 +59,18 @@ Ví dụ:
 
 ```latex
 \begin{preamble}{Tóm tắt}
-\textbf{Tóm tắt:} Hiện nay, với sự phát triển nhanh chóng của các dịch vụ IP và sự bùng nổ của Internet đã dẫn đến một
-loạt các vấn đề được đặt ra như: tốc độ truyền, quản lý chất lượng dịch vụ, điều phối dung lượng... Gần đây, công nghệ
-chuyển mạch nhãn đa giao thức MPLS được đề xuất, MPLS đã kết hợp được khả năng định tuyến tốt ở lớp 3 và chuyển mạch ở
-lớp 2, nó mở ra một viễn cảnh cho rất nhiều ứng dụng quan trọng. Mạng riêng ảo VPN là một trong những ứng dụng nổi bật
-nhất của công nghệ MPLS, MPLS VPN đã khắc phục được hầu hết những nhược điểm tồn tại trước đó trong công nghệ VPN truyền
-thống. Do vậy, trong đề tài khóa luận này em muốn giới thiệu công nghệ MPLS và dịch vụ MPLS VPN. Nội dung của đồ án sẽ
-tập trung trình bày những đặc điểm cơ bản của kiến trúc MPLS, tính ưu việt trong ứng dụng MPLS VPN, và các bước tiến
-hành cấu hình trên Router của hãng Cisco.
+\textbf{Tóm tắt:} Hiện nay, với sự phát triển nhanh chóng của các dịch vụ IP và
+sự bùng nổ của Internet đã dẫn đến một loạt các vấn đề được đặt ra như: tốc độ
+truyền, quản lý chất lượng dịch vụ, điều phối dung lượng... Gần đây, công nghệ
+chuyển mạch nhãn đa giao thức MPLS được đề xuất, MPLS đã kết hợp được khả năng
+định tuyến tốt ở lớp 3 và chuyển mạch ở lớp 2, nó mở ra một viễn cảnh cho rất
+nhiều ứng dụng quan trọng. Mạng riêng ảo VPN là một trong những ứng dụng nổi
+bật nhất của công nghệ MPLS, MPLS VPN đã khắc phục được hầu hết những nhược
+điểm tồn tại trước đó trong công nghệ VPN truyền thống. Do vậy, trong đề tài
+khóa luận này em muốn giới thiệu công nghệ MPLS và dịch vụ MPLS VPN. Nội dung
+của đồ án sẽ tập trung trình bày những đặc điểm cơ bản của kiến trúc MPLS, tính
+ưu việt trong ứng dụng MPLS VPN, và các bước tiến hành cấu hình trên Router của
+hãng Cisco.
 
 \textit{\textbf{Từ khóa:} MPLS, Chuyển mạch nhãn.}
 \end{preamble}

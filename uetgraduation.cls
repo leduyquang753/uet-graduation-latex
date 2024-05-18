@@ -1,13 +1,13 @@
 % vim:syntax=tex
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{uetgraduation}[2024/05/17
+\ProvidesClass{uetgraduation}[2024/05/18
 	LaTeX document class for Vietnam National University, University of Engineering and Technology (VNU-UET)
 	graduation documents.
 ]
 
 \RequirePackage{amsmath}
 \RequirePackage{etoolbox}
-\RequirePackage[fontsize=13pt]{fontsize}
+\RequirePackage{fontsize}
 \RequirePackage[a4paper,twoside,inner=3cm,outer=2cm,top=2.5cm,bottom=2cm,includefoot,footskip=1cm]{geometry}
 \RequirePackage{graphicx}
 \RequirePackage{icomma}
@@ -20,6 +20,7 @@
 \lefthyphenmin 64
 \frenchspacing
 \setallmainfonts{Times New Roman}
+\changefontsize[16.9pt]{13pt}
 \pagenumbering{arabic}
 
 \setlength\parindent{1cm}
@@ -54,7 +55,7 @@
 \newcommand\labelitemiv{\labelitemfont \char"25E6}
 \newcommand\labelitemfont{\normalfont}
 \newlength\customfontsize
-\newcommand\setfontsize[1]{\setlength\customfontsize{#1}\fontsize{\customfontsize}{1.2\customfontsize}\selectfont}
+\newcommand\setfontsize[1]{\setlength\customfontsize{#1}\fontsize{\customfontsize}{1.3\customfontsize}\selectfont}
 
 \def\@meta@studentname{\PackageError{uetgraduation}{Student name is not specified.}{
 	The student's name needs to be specified for the cover pages.
@@ -152,7 +153,7 @@
 }
 
 \newenvironment{preamble}[1]{%
-	\setlength\parindent{0cm}\setfontsize{12pt}{\centering\textbf{\MakeUppercase{#1}}\par}\vspace{1cm}
+	\setlength\parindent{0cm}{\centering\textbf{\MakeUppercase{#1}}\par}\vspace{1cm}\setfontsize{12pt}
 }{\cleardoublepage\normalsize}
 
 \newif\if@incontentlisting\@incontentlistingfalse
