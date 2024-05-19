@@ -5,9 +5,11 @@
 	graduation documents.
 ]
 
+\newenvironment{description}{}{} % Dummy, will be overwritten by `enumitem`.
+
 \RequirePackage{amsmath}
-\RequirePackage{etoolbox}
 \RequirePackage{fontsize}
+\RequirePackage{enumitem}
 \RequirePackage[a4paper,twoside,inner=3cm,outer=2cm,top=2.5cm,bottom=2cm,includefoot,footskip=1cm]{geometry}
 \RequirePackage{graphicx}
 \RequirePackage{icomma}
@@ -22,6 +24,7 @@
 \setallmainfonts{Times New Roman}
 \changefontsize[16.9pt]{13pt}
 \pagenumbering{arabic}
+\setlist{topsep=0pt,itemsep=0pt,parsep=6pt}
 
 \setlength\parindent{1cm}
 \setlength\parskip{6pt}
