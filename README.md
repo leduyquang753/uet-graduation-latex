@@ -156,7 +156,42 @@ Ví dụ kiểu đính kèm hình vẽ được định nghĩa như sau:
 
 ### Danh sách tài liệu tham khảo
 
-Thực hiện đặt danh sách tài liệu tham khảo ở cuối tài liệu như bình thường, quy cách đã được thiết lập sẵn.
+Đặt môi trường `thebibliography` ở cuối tài liệu với một tham trị là một số có số chữ số bằng với số chữ số của số tài
+liệu tham khảo (ví dụ nếu có 35 tài liệu thì chọn một số có hai chữ số như 99). Bên trong, với mỗi ngôn ngữ của tài liệu
+tham khảo, đặt một môi trường `bibsection` với một tham trị là ngôn ngữ đó, rồi bên trong đặt các mục tài liệu
+`\bibitem` tương ứng.
+
+Ví dụ:
+
+```latex
+\begin{thebibliography}{9}
+\begin{bibsection}{Tiếng Việt}
+\bibitem{dieu1999}
+	Phan Đình Diệu,
+	\textit{Lí thuyết về độ phức tạp tính toán},
+	Nhà xuất bản Đại học Quốc gia Hà Nội, 1999, tr. 15-25.
+\bibitem{cuong2005}
+	Nguyễn Việt Cường, Nguyễn Thị Thùy Linh, Phan Xuân Hiếu, Hà Quang Thụy,
+	``Bài toán lọc và phân lớp nội dung Web tiếng Việt với hướng tiếp cận
+	entropy cực đại'',
+	\textit{Kỉ yếu Hội thảo quốc gia lần thứ VIII Một số vấn đề chọn lọc của
+	Công nghệ thông tin và truyền thông},
+	2005, tr. 1-2.
+\end{bibsection}
+
+\begin{bibsection}{Tiếng Anh}
+\bibitem{allister2008}
+	M.W. Allister and S.A. Long,
+	``Resonant hemispherical dielectric antenna'',
+	\textit{Electronics letters}, Vol. 20,
+	2008, pp. 657-659.
+\bibitem{dym1991}
+	C.L. Dym and R.E. Levit,
+	\textit{Knowledge-based systems in engineering},
+	McGraw-Hill, 1991, pp. 51, 76, 102-108.
+\end{bibsection}
+\end{thebibliography}
+```
 
 ## Góp ý
 

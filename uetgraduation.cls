@@ -215,22 +215,31 @@
 \makeattachmenttype{table}{Bảng}{lot}{\listoftables}{Danh sách bảng}
 
 \newcommand\bibname{Tài liệu tham khảo}
-\newenvironment{thebibliography}[1]{%
-	\cleardoublepage\Large\textbf{\bibname}\par
-	\normalsize\list{\@biblabel{\@arabic\c@enumiv}}{
-		\settowidth\labelwidth{\@biblabel{#1}}
-		\leftmargin\labelwidth
-		\advance\leftmargin\labelsep
-		\usecounter{enumiv}%
-		\let\p@enumiv\@empty
-		\renewcommand\theenumiv{\@arabic\c@enumiv}
+\newcounter{bibitem}
+\renewcommand\thebibitem{\@arabic\c@bibitem}
+\newif\if@inthebibliography\@inthebibliographyfalse
+\newif\if@inbibsection\@inbibsectionfalse
+\newenvironment{thebibliography}[1]{
+	\@inthebibliographytrue\settowidth\labelwidth{\@biblabel{#1}}
+	\cleardoublepage\noindent\Large\textbf{\bibname}\par\normalsize\vspace{1cm}
+}{\@inthebibliographyfalse}
+\newenvironment{bibsection}[1]{%
+	\if@inthebibliography\else\PackageError{uetgraduation}{\`bibsection\` not in \`thebibliography\`.}{
+		A bibliography section needs to be placed in \`thebibliography\` environment.
+	}\fi\@inbibsectiontrue%
+	\noindent\textbf{#1}
+	\list{\@biblabel{\thebibitem}}{
+		\leftmargin\labelwidth\advance\leftmargin\labelsep
+		\@nmbrlisttrue\def\@listctr{bibitem}
 	}%
-	\sloppy
-	\clubpenalty 4000
-	\@clubpenalty \clubpenalty
-	\widowpenalty 4000%
-	\sfcode`\.\@m
-}{\def\@noitemerr{\PackageWarning{Empty bibliography environment.}}\endlist}
+	\sloppy\clubpenalty 4000\@clubpenalty \clubpenalty\widowpenalty 4000\sfcode`\.\@m
+}{\def\@noitemerr{}\endlist\@inbibsectionfalse}
+\renewcommand\bibitem[1]{%
+	\if@inbibsection\else\PackageError{uetgraduation}{\`bibitem\` not in \`bibsection\`.}{
+		A bibliography item needs to be placed in a \`bibsection\` environment.
+	}\fi%
+	\item\if@filesw\immediate\write\@auxout{\string\bibcite{#1}{\the\value{\@listctr}}}\fi\ignorespaces
+}
 
 \mathchardef\dcol="203A % Division colon (:).
 \mathchardef\mdot="202E % Multiplication dot (.).
