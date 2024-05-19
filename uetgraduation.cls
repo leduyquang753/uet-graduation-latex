@@ -140,11 +140,11 @@
 }
 
 \newenvironment{preamble}[1]{%
-	\setlength\parindent{0cm}{\centering\textbf{\MakeUppercase{#1}}\par}\vspace{1cm}\setfontsize{12pt}
-}{\cleardoublepage\normalsize}
+	\clearpage\setlength\parindent{0cm}{\centering\textbf{\MakeUppercase{#1}}\par}\vspace{1cm}\setfontsize{12pt}
+}{\normalsize}
 
 \newif\if@incontentlisting\@incontentlistingfalse
-\newenvironment{contentlisting}{\@incontentlistingtrue}{\@incontentlistingfalse\cleardoublepage}
+\newenvironment{contentlisting}{\cleardoublepage\@incontentlistingtrue}{\@incontentlistingfalse\cleardoublepage}
 
 \setcounter{tocdepth}{3}
 \newenvironment{contentlistingsection}[1]{%
@@ -236,3 +236,6 @@
 % No page numbering for the cover and preamble pages, page numbering will automatically start at the first chapter.
 \pagestyle{empty}
 \bibliographystyle{plain}
+
+% Prevent overflow of the text column at all costs.
+\sloppy

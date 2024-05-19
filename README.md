@@ -8,8 +8,8 @@ Trường Đại học Công nghệ, Đại học Quốc gia Hà Nội sử dụ
 > [!IMPORTANT]
 > Sử dụng XeTeX để xử lí mã nguồn của tài liệu, do lớp tài liệu sử dụng font TrueType và các tính năng Unicode.
 
-Đưa hai tệp `uetgraduation.cls` và `UET logo.pdf` vào cùng thư mục với tệp LaTeX chính. Khai báo ở đầu tệp LaTeX chính
-`\documentclass{uetgraduation}`.
+Đưa các tệp `uetgraduation.cls`, `sizes.clo` và `UET logo.pdf` vào cùng thư mục với tệp LaTeX chính. Khai báo ở đầu tệp
+LaTeX chính `\documentclass{uetgraduation}`.
 
 ### Tạo các trang bìa
 
