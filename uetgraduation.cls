@@ -5,11 +5,9 @@
 	graduation documents.
 ]
 
-\newenvironment{description}{}{} % Dummy, will be overwritten by `enumitem`.
+\input{sizes.clo}
 
 \RequirePackage{amsmath}
-\RequirePackage{fontsize}
-\RequirePackage{enumitem}
 \RequirePackage[a4paper,twoside,inner=3cm,outer=2cm,top=2.5cm,bottom=2cm,includefoot,footskip=1cm]{geometry}
 \RequirePackage{graphicx}
 \RequirePackage{icomma}
@@ -22,22 +20,8 @@
 \lefthyphenmin 64
 \frenchspacing
 \setallmainfonts{Times New Roman}
-\changefontsize[16.9pt]{13pt}
 \pagenumbering{arabic}
-\setlist{topsep=0pt,itemsep=0pt,parsep=6pt}
 
-\setlength\parindent{1cm}
-\setlength\parskip{6pt}
-\setlength\leftmargini{1cm}
-\leftmargin\leftmargini
-\setlength\leftmarginii{\leftmargini}
-\setlength\leftmarginiii{\leftmargini}
-\setlength\leftmarginiv{\leftmargini}
-\setlength\leftmarginv{\leftmargini}
-\setlength\leftmarginvi{\leftmargini}
-\setlength\labelsep{0.25cm}
-\setlength\labelwidth{\leftmargini}
-\addtolength\labelwidth{-\labelsep}
 \@beginparpenalty -51
 \@endparpenalty -51
 \@itempenalty -51
@@ -162,13 +146,6 @@
 \newif\if@incontentlisting\@incontentlistingfalse
 \newenvironment{contentlisting}{\@incontentlistingtrue}{\@incontentlistingfalse\cleardoublepage}
 
-\renewcommand\numberline[2]{#1 #2}
-\newcommand\@tocline[4]{\ifnum #1>\c@tocdepth\else
-	\vskip\z@\@plus.2\p@{%
-		\raggedright\parindent #2\hangindent #2\rightskip 1cm\parfillskip -1cm\interlinepenalty\@M\leavevmode #3%
-		\leaders\hbox{$\m@th\mkern0.5mu\hbox{.}\mkern0.5mu$}\hfill #4\par%
-	}
-\fi}
 \setcounter{tocdepth}{3}
 \newenvironment{contentlistingsection}[1]{%
 	\if@incontentlisting\else\PackageError{uetgraduation}{
@@ -179,6 +156,14 @@
 	\noindent\Large\textbf{#1}\par\vspace{1cm}\normalsize
 }{\clearpage}
 \newcommand\tableofcontents{\begin{contentlistingsection}{Mục lục}\@starttoc{toc}\end{contentlistingsection}}
+\renewcommand\numberline[2]{#1 #2}
+\newcommand\@tocline[4]{\ifnum #1>\c@tocdepth\else
+	\vskip\z@\@plus.2\p@{%
+		\raggedright\parindent #2\hangindent #2\rightskip 1cm\parfillskip -1cm\interlinepenalty\@M\leavevmode
+		\ifnum #1=1\textbf{#3}\else #3\fi%
+		\leaders\hbox{$\m@th\mkern0.5mu\hbox{.}\mkern0.5mu$}\hfill #4\par%
+	}
+\fi}
 \newcommand*\l@chapter{\@tocline{1}{0cm}}
 \newcommand*\l@section{\@tocline{2}{1cm}}
 \newcommand*\l@subsection{\@tocline{3}{2cm}}

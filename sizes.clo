@@ -1,0 +1,82 @@
+\ProvidesFile{sizes.clo}
+
+\newdimen\@sb \@sb=1.3pt
+\renewcommand\normalsize{%
+	\@setfontsize\normalsize{10\@sb}{13\@sb}
+	\abovedisplayskip 10\@sb \@plus2\@sb \@minus5\@sb
+	\abovedisplayshortskip \z@ \@plus3\@sb
+	\belowdisplayshortskip 6\@sb \@plus3\@sb \@minus3\@sb
+	\belowdisplayskip \abovedisplayskip
+	\let\@listi\@listI}
+\normalsize
+\ifx\MakeRobust\@undefined \else
+	 \MakeRobust\normalsize
+\fi
+\DeclareRobustCommand\small{%
+	\@setfontsize\small{9\@sb}{11.7\@sb}%
+	\abovedisplayskip 8.5\@sb \@plus3\@sb \@minus4\@sb
+	\abovedisplayshortskip \z@ \@plus2\@sb
+	\belowdisplayshortskip 4\@sb \@plus2\@sb \@minus2\@sb
+	\def\@listi{\leftmargin\leftmargini
+		\topsep 4\@sb \@plus2\@sb \@minus2\@sb
+		\parsep 2\@sb \@plus\@sb \@minus\@sb
+		\itemsep \parsep}%
+	\belowdisplayskip \abovedisplayskip
+}
+\DeclareRobustCommand\footnotesize{%
+	\@setfontsize\footnotesize{8\@sb}{10.4\@sb}%
+	\abovedisplayskip 6\@sb \@plus2\@sb \@minus4\@sb
+	\abovedisplayshortskip \z@ \@plus\@sb
+	\belowdisplayshortskip 3\@sb \@plus\@sb \@minus2\@sb
+	\def\@listi{\leftmargin\leftmargini
+		\topsep 3\@sb \@plus\@sb \@minus\@sb
+		\parsep 2\@sb \@plus\@sb \@minus\@sb
+		\itemsep \parsep}%
+	\belowdisplayskip \abovedisplayskip
+}
+\DeclareRobustCommand\scriptsize{\@setfontsize\scriptsize{7\@sb}{9.1\@sb}}
+\DeclareRobustCommand\tiny{\@setfontsize\tiny{5\@sb}{6.5\@sb}}
+\DeclareRobustCommand\large{\@setfontsize\large{12\@sb}{15.6\@sb}}
+\DeclareRobustCommand\Large{\@setfontsize\Large{14\@sb}{18.2\@sb}}
+\DeclareRobustCommand\LARGE{\@setfontsize\LARGE{17\@sb}{22.1\@sb}}
+\DeclareRobustCommand\huge{\@setfontsize\huge{20\@sb}{26\@sb}}
+\DeclareRobustCommand\Huge{\@setfontsize\Huge{25\@sb}{32.5\@sb}}
+\setlength\parindent{1cm}
+\setlength\smallskipamount{3\@sb \@plus 1\@sb \@minus 1\@sb}
+\setlength\medskipamount{6\@sb \@plus 2\@sb \@minus 2\@sb}
+\setlength\bigskipamount{12\@sb \@plus 4\@sb \@minus 4\@sb}
+\setlength\headheight{12\@sb}
+\setlength\headsep{25\@sb}
+\setlength\topskip{10\@sb}
+\setlength\footskip{30\@sb}
+\setlength\maxdepth{.5\topskip}
+\setlength\partopsep{2\@sb \@plus 1\@sb \@minus 1\@sb}
+\setlength\parindent{1cm}
+\setlength\parskip{6pt}
+\setlength\leftmargini{1cm}
+\leftmargin\leftmargini
+\setlength\leftmarginii{\leftmargini}
+\setlength\leftmarginiii{\leftmargini}
+\setlength\leftmarginiv{\leftmargini}
+\setlength\leftmarginv{\leftmargini}
+\setlength\leftmarginvi{\leftmargini}
+\setlength\labelsep{0.15cm}
+\setlength\labelwidth{\leftmargini}
+\addtolength\labelwidth{-\labelsep}
+\def\@listi{%
+	\leftmargin\leftmargini
+	\parsep 6pt \topsep 0pt \itemsep 0pt%
+}
+\let\@listI\@listi
+\@listi
+\def\@listii{%
+	\leftmargin\leftmarginii
+	\labelwidth\leftmarginii
+	\advance\labelwidth-\labelsep
+	\parsep 6pt \topsep 0pt \itemsep 0pt%
+}
+\def\@listiii{\@listii}
+\def\@listiv{\@listii}
+\def\@listv{\@listii}
+\def\@listvi{\@listii}
+\endinput
