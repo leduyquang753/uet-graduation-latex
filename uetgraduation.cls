@@ -1,6 +1,6 @@
 % vim:syntax=tex
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{uetgraduation}[2024/05/18
+\ProvidesClass{uetgraduation}[2024/05/19
 	LaTeX document class for Vietnam National University, University of Engineering and Technology (VNU-UET)
 	graduation documents.
 ]
@@ -205,7 +205,7 @@
 	\newcounter{#1}[chapter]
 	\expandafter\renewcommand\csname the#1\endcsname{\thechapter.\@arabic\csname c@#1\endcsname}
 	\expandafter\newcommand\csname #1caption\endcsname[1]{%
-		\stepcounter{#1}\addcontentsline{#3}{#1}{\protect\numberline{#2 \csname the#1\endcsname.}{##1}}%
+		\stepcounter{#1}\addcontentsline{#3}{#1}{\protect\numberline{\csname the#1\endcsname.}{##1}}%
 		#2 \csname the#1\endcsname. ##1%
 	}
 	\newcommand #4{\begin{contentlistingsection}{#5}\@starttoc{#3}\end{contentlistingsection}}
