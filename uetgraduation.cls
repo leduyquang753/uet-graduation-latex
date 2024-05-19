@@ -190,15 +190,15 @@
 	\cleardoublepage\stepcounter{chapter}\ifnum\c@chapter=1\pagestyle{plain}\setcounter{page}{1}\fi
 	\addcontentsline{toc}{chapter}{\protect\numberline{Chương \thechapter.}{#1}}
 	\noindent\large\textbf{Chương \thechapter.}\par
-	\noindent\huge#1\par\vspace{2cm}\normalsize%
+	\noindent\huge#1\par\vspace{1cm}\normalsize%
 }
 \newcommand\section[1]{%
 	\stepcounter{section}\addcontentsline{toc}{section}{\protect\numberline{\thesection.}{#1}}
-	\noindent\Large\textbf{\thesection. #1}\par\normalsize%
+	\vspace{1cm}\noindent\Large\textbf{\thesection. #1}\par\normalsize%
 }
 \newcommand\subsection[1]{%
 	\stepcounter{subsection}\addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection.}{#1}}
-	\noindent\large\textbf{\thesubsection. #1}\par\normalsize%
+	\vspace{0.5cm}\noindent\large\textbf{\thesubsection. #1}\par\normalsize%
 }
 % Arguments: attachment identifier, number prefix, list identifier, list command, list title.
 \newcommand\makeattachmenttype[5]{
