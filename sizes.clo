@@ -79,4 +79,13 @@
 \def\@listiv{\@listii}
 \def\@listv{\@listii}
 \def\@listvi{\@listii}
+
+\setlength\arraycolsep{0.25cm}
+\setlength\tabcolsep{0.25cm}
+\setlength\arrayrulewidth{0.5pt}
+\setlength\doublerulesep{2pt}
+\setlength\tabbingsep{\labelsep}
+\skip\@mpfootins=\skip\footins
+\setlength\fboxsep{0.25pt}
+\setlength\fboxrule{0.5pt}
 \endinput

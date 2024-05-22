@@ -130,29 +130,60 @@ Lịch sử bắt đầu từ...
 Với lịch sử lâu dài như vậy, ta có...
 ```
 
-### Phụ đề hình vẽ, bảng và các kiểu đính kèm khác
+### Hình vẽ, bảng và các kiểu đính kèm khác
 
-Đặt phụ đề cho hình vẽ bằng lệnh `\figurecaption`, cho bảng bằng lệnh `\tablecaption`, với một tham trị là tên hình vẽ
-hoặc bảng. Phụ đề sẽ được tự động đánh số. Ví dụ:
+Tạo chỗ chứa hình vẽ bằng môi trường `figure`, chỗ chứa bảng bằng môi trường `table`, với một tham trị là tên hình vẽ
+hoặc bảng đó. Phụ đề sẽ được tự động đánh số. Ví dụ:
 
 ```latex
-\figurecaption{Mô hình ca sử dụng cho hệ thống phần mềm BidArt}
+\begin{table}{Kích cỡ của các kiểu số nguyên trên Windows 64-bit}
+\centering
+\begin{tabular}{|l|r|}
+\hline
+\textbf{Kiểu} & \textbf{Số bit} \\ \hline
+char & 8 \\
+short & 16 \\
+int & 32 \\
+long & 32 \\
+long long & 64 \\
+\hline
+\end{tabular}
+\end{table}
 ```
 
-Có thể tạo thêm những kiểu đính kèm khác cho đồ thị, thuật toán, đoạn mã nguồn bằng cách sử dụng lệnh
+Có thể tạo thêm những kiểu đính kèm khác cho đồ thị, thuật toán, đoạn mã nguồn,... bằng cách sử dụng lệnh
 `\makeattachmenttype` ở trước `\begin{document}` với cú pháp:
 
 ```latex
-\makeattachmenttype{định danh kiểu đính kém}{nội dung đặt trước số}{định danh danh sách}{lệnh đặt danh sách}{tiêu đề danh sách}
+\makeattachmenttype
+	{định danh kiểu đính kèm}
+	{các vị trí đặt}
+	{nội dung đặt trước số}
+	{nội dung chèn vào phía trước}
+	{nội dung chèn vào phía sau}
+	{định danh danh sách}
+	{lệnh đặt danh sách}
+	{tiêu đề danh sách}
 ```
+
+Các vị trí đặt là một số trong số bốn chữ cái sau viết liền nhau:
+
+- `h`: Vị trí hiện tại.
+- `t`: Vị trí đầu trang.
+- `b`: Vị trí cuối trang.
+- `p`: Trên một trang riêng.
+
+Dùng lệnh `\captionbox`, thường là ở trong nội dung chèn vào phía trước hoặc phía sau, để đặt một hộp phụ đề với một
+tham số là nội dung phụ đề. Lệnh `\caption` cho ra nội dung phụ đề để đặt vào trong `\captionbox` cùng với các lệnh định
+dạng khác nếu có.
 
 Ví dụ kiểu đính kèm hình vẽ được định nghĩa như sau:
 
 ```latex
-\makeattachmenttype{figure}{Hình}{lof}{\listoffigures}{Danh sách hình vẽ}
+\makeattachmenttype{figure}{htbp}{Hình}{}{%
+	\vspace{0.25cm}\captionbox{\setfontsize{12pt}\caption}%
+}{lof}{\listoffigures}{Danh sách hình vẽ}
 ```
-
-Để đặt phụ đề, sử dụng lệnh với tên là định danh kiểu theo sau là `caption` (ví dụ từ `figure` sẽ ra `\figurecaption`).
 
 ### Danh sách tài liệu tham khảo
 

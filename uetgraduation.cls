@@ -1,6 +1,6 @@
 % vim:syntax=tex
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{uetgraduation}[2024/05/19
+\ProvidesClass{uetgraduation}[2024/05/22
 	LaTeX document class for Vietnam National University, University of Engineering and Technology (VNU-UET)
 	graduation documents.
 ]
@@ -175,32 +175,57 @@
 \renewcommand\thesection{\thechapter.\@arabic\c@section}
 \renewcommand\thesubsection{\thesection.\@arabic\c@subsection}
 \newcommand\chapter[1]{%
-	\cleardoublepage\stepcounter{chapter}\ifnum\c@chapter=1\pagestyle{plain}\setcounter{page}{1}\fi
+	\cleardoublepage\refstepcounter{chapter}\ifnum\c@chapter=1\pagestyle{plain}\setcounter{page}{1}\fi
 	\addcontentsline{toc}{chapter}{\protect\numberline{Chương \thechapter.}{#1}}
 	\noindent\large\textbf{Chương \thechapter.}\par
 	\noindent\huge#1\par\vspace{1cm}\normalsize%
 }
 \newcommand\section[1]{%
-	\stepcounter{section}\addcontentsline{toc}{section}{\protect\numberline{\thesection.}{#1}}
+	\refstepcounter{section}\addcontentsline{toc}{section}{\protect\numberline{\thesection.}{#1}}
 	\vspace{1cm}\noindent\Large\textbf{\thesection. #1}\par\normalsize%
 }
 \newcommand\subsection[1]{%
-	\stepcounter{subsection}\addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection.}{#1}}
+	\refstepcounter{subsection}\addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection.}{#1}}
 	\vspace{0.5cm}\noindent\large\textbf{\thesubsection. #1}\par\normalsize%
 }
-% Arguments: attachment identifier, number prefix, list identifier, list command, list title.
-\newcommand\makeattachmenttype[5]{
+
+\newcommand\captionbox[1]{\par\begingroup\@parboxrestore\if@minipage\@setminipage\fi\centering#1\par\endgroup}
+\renewcommand\caption{%
+	\ifx\@captype\@undefined\PackageError{uetgraduation}{Caption outside attachment}{
+		A caption needs to be inside an attachment environment.
+	}\fi%
+	\refstepcounter\@captype\csname caption@\@captype\endcsname%
+	\addcontentsline{\csname ext@\@captype\endcsname}{\@captype}{%
+		\protect\numberline{\csname the\@captype\endcsname.}{\ignorespaces \@captiontext}%
+	}%
+	\csname prefix@\@captype\endcsname\nobreakspace\csname the\@captype\endcsname. \@captiontext%
+}
+% Arguments:
+% 1. Attachment identifier.
+% 2. Placement specifier.
+% 3. Number prefix.
+% 4. Before content.
+% 5. After content.
+% 6. Listing file extension.
+% 7. List command.
+% 8. List title.
+\newcommand\makeattachmenttype[8]{
 	\newcounter{#1}[chapter]
 	\expandafter\renewcommand\csname the#1\endcsname{\thechapter.\@arabic\csname c@#1\endcsname}
-	\expandafter\newcommand\csname #1caption\endcsname[1]{%
-		\stepcounter{#1}\addcontentsline{#3}{#1}{\protect\numberline{\csname the#1\endcsname.}{##1}}%
-		#2 \csname the#1\endcsname. ##1%
-	}
-	\newcommand #4{\begin{contentlistingsection}{#5}\@starttoc{#3}\end{contentlistingsection}}
-	\expandafter\newcommand\expandafter*\csname l@#1\endcsname{\@tocline{1}{0cm}}
+	\expandafter\newcommand\csname fps@#1\endcsname{#2}
+	\expandafter\newcommand\csname ftype@#1\endcsname{1}
+	\expandafter\newcommand\csname ext@#1\endcsname{#6}
+	\expandafter\newcommand\csname prefix@#1\endcsname{#3}
+	\newcommand #7{\begin{contentlistingsection}{#8}\@starttoc{#6}\end{contentlistingsection}}
+	\expandafter\newcommand\expandafter*\csname l@#1\endcsname{\@tocline{2}{0cm}}
+	\newenvironment{#1}[1]{\def\@captiontext{##1}\@float{#1}#4}{#5\end@float}
 }
-\makeattachmenttype{figure}{Hình}{lof}{\listoffigures}{Danh sách hình vẽ}
-\makeattachmenttype{table}{Bảng}{lot}{\listoftables}{Danh sách bảng}
+\makeattachmenttype{figure}{htbp}{Hình}{}{%
+	\vspace{0.25cm}\captionbox{\setfontsize{12pt}\caption}%
+}{lof}{\listoffigures}{Danh sách hình vẽ}
+\makeattachmenttype{table}{htbp}{Bảng}{%
+	\captionbox{\textbf{\caption}}\vspace{0.25cm}%
+}{}{lot}{\listoftables}{Danh sách bảng}
 
 \newcommand\bibname{Tài liệu tham khảo}
 \newcounter{bibitem}
