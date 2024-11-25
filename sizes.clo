@@ -18,8 +18,7 @@
 	\abovedisplayshortskip \z@ \@plus2\@sb
 	\belowdisplayshortskip 4\@sb \@plus2\@sb \@minus2\@sb
 	\def\@listi{\leftmargin\leftmargini
-		\topsep 4\@sb \@plus2\@sb \@minus2\@sb
-		\parsep 2\@sb \@plus\@sb \@minus\@sb
+		\parsep 4pt \topsep\z@ \itemsep\z@
 		\itemsep \parsep}%
 	\belowdisplayskip \abovedisplayskip
 }
@@ -29,8 +28,7 @@
 	\abovedisplayshortskip \z@ \@plus\@sb
 	\belowdisplayshortskip 3\@sb \@plus\@sb \@minus2\@sb
 	\def\@listi{\leftmargin\leftmargini
-		\topsep 3\@sb \@plus\@sb \@minus\@sb
-		\parsep 2\@sb \@plus\@sb \@minus\@sb
+		\parsep 3pt \topsep\z@ \itemsep\z@
 		\itemsep \parsep}%
 	\belowdisplayskip \abovedisplayskip
 }
@@ -65,7 +63,7 @@
 \addtolength\labelwidth{-\labelsep}
 \def\@listi{%
 	\leftmargin\leftmargini
-	\parsep 6pt \topsep 0pt \itemsep 0pt%
+	\parsep 6pt \topsep\z@ \itemsep\z@%
 }
 \let\@listI\@listi
 \@listi
@@ -73,7 +71,7 @@
 	\leftmargin\leftmarginii
 	\labelwidth\leftmarginii
 	\advance\labelwidth-\labelsep
-	\parsep 6pt \topsep 0pt \itemsep 0pt%
+	\parsep 6pt \topsep\z@ \itemsep\z@%
 }
 \def\@listiii{\@listii}
 \def\@listiv{\@listii}

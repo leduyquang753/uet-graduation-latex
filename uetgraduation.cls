@@ -1,6 +1,6 @@
 % vim:syntax=tex
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{uetgraduation}[2024/05/22
+\ProvidesClass{uetgraduation}[2024/11/25
 	LaTeX document class for Vietnam National University, University of Engineering and Technology (VNU-UET)
 	graduation documents.
 ]
@@ -9,19 +9,25 @@
 
 \RequirePackage{amsmath}
 \RequirePackage[a4paper,twoside,inner=3cm,outer=2cm,top=2.5cm,bottom=2cm,includefoot,footskip=1cm]{geometry}
+\RequirePackage{fontspec}
 \RequirePackage{graphicx}
 \RequirePackage{icomma}
 \RequirePackage{indentfirst}
-\RequirePackage{mathspec}
+\RequirePackage[fontspec-loader]{mathfont}
 \RequirePackage{siunitx}
 \RequirePackage{tikz}
 	\usetikzlibrary{calc}
 
+\raggedbottom
 \lefthyphenmin 64
 \frenchspacing
-\setallmainfonts{Times New Roman}
-\pagenumbering{arabic}
+\setmainfont{Times New Roman}
+\mathfont{Times New Roman}
+\pagenumbering{roman}
+\newcounter{firstContentPageIndex}
 
+\widowpenalty \@M
+\clubpenalty \@M
 \@beginparpenalty -51
 \@endparpenalty -51
 \@itempenalty -51
@@ -165,8 +171,8 @@
 	}
 \fi}
 \newcommand*\l@chapter{\@tocline{1}{0cm}}
-\newcommand*\l@section{\@tocline{2}{1cm}}
-\newcommand*\l@subsection{\@tocline{3}{2cm}}
+\newcommand*\l@section{\@tocline{2}{0.5cm}}
+\newcommand*\l@subsection{\@tocline{3}{1cm}}
 
 \newcounter{chapter}
 \newcounter{section}[chapter]
@@ -175,26 +181,33 @@
 \renewcommand\thesection{\thechapter.\@arabic\c@section}
 \renewcommand\thesubsection{\thesection.\@arabic\c@subsection}
 \newcommand\chapter[1]{%
-	\cleardoublepage\refstepcounter{chapter}\ifnum\c@chapter=1\pagestyle{plain}\setcounter{page}{1}\fi
+	\cleardoublepage\refstepcounter{chapter}
+	\ifnum\c@chapter=1%
+		\setcounter{firstContentPageIndex}{\value{page}}%
+		\pagestyle{plain}\pagenumbering{arabic}\setcounter{page}{1}%
+	\fi
 	\addcontentsline{toc}{chapter}{\protect\numberline{Chương \thechapter.}{#1}}
 	\noindent\large\textbf{Chương \thechapter.}\par
 	\noindent\huge#1\par\vspace{1cm}\normalsize%
 }
-\newcommand\section[1]{%
+\newcommand\@makesection[2]{%
+	\if@nobreak\everypar{}\else\addpenalty\@secpenalty\vspace{#1}\fi#2\par\nobreak\@nobreaktrue\normalsize%
+	\everypar{\@nobreakfalse\everypar{}}%
+}
+\newcommand\section[1]{\@makesection{1cm}{%
 	\refstepcounter{section}\addcontentsline{toc}{section}{\protect\numberline{\thesection.}{#1}}
-	\vspace{1cm}\noindent\Large\textbf{\thesection. #1}\par\normalsize%
-}
-\newcommand\subsection[1]{%
+	\noindent\Large\textbf{\thesection. #1}
+}}
+\newcommand\subsection[1]{\@makesection{0.5cm}{%
 	\refstepcounter{subsection}\addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection.}{#1}}
-	\vspace{0.5cm}\noindent\large\textbf{\thesubsection. #1}\par\normalsize%
-}
+	\noindent\large\textbf{\thesubsection. #1}
+}}
 
-\newcommand\captionbox[1]{\par\begingroup\@parboxrestore\if@minipage\@setminipage\fi\centering#1\par\endgroup}
-\renewcommand\caption{%
+\newcommand\attachmentcaptionbox[1]{\par\begingroup\@parboxrestore\if@minipage\@setminipage\fi#1\par\endgroup}
+\newcommand\attachmentcaption{%
 	\ifx\@captype\@undefined\PackageError{uetgraduation}{Caption outside attachment}{
 		A caption needs to be inside an attachment environment.
 	}\fi%
-	\refstepcounter\@captype\csname caption@\@captype\endcsname%
 	\addcontentsline{\csname ext@\@captype\endcsname}{\@captype}{%
 		\protect\numberline{\csname the\@captype\endcsname.}{\ignorespaces \@captiontext}%
 	}%
@@ -218,13 +231,15 @@
 	\expandafter\newcommand\csname prefix@#1\endcsname{#3}
 	\newcommand #7{\begin{contentlistingsection}{#8}\@starttoc{#6}\end{contentlistingsection}}
 	\expandafter\newcommand\expandafter*\csname l@#1\endcsname{\@tocline{2}{0cm}}
-	\newenvironment{#1}[1]{\def\@captiontext{##1}\@float{#1}#4}{#5\end@float}
+	\newenvironment{#1}[2][]{%
+		\refstepcounter{#1}\def\@captiontext{##2}\ifx&##1&\@float{#1}\else\@float{#1}[##1]\fi#4%
+	}{#5\end@float}
 }
-\makeattachmenttype{figure}{htbp}{Hình}{}{%
-	\vspace{0.25cm}\captionbox{\setfontsize{12pt}\caption}%
+\makeattachmenttype{figure}{tbp}{Hình}{}{%
+	\vspace{0.25cm}\attachmentcaptionbox{\centering\small\attachmentcaption}%
 }{lof}{\listoffigures}{Danh sách hình vẽ}
-\makeattachmenttype{table}{htbp}{Bảng}{%
-	\captionbox{\textbf{\caption}}\vspace{0.25cm}%
+\makeattachmenttype{table}{tbp}{Bảng}{%
+	\attachmentcaptionbox{\centering\small\textbf{\attachmentcaption}}\vspace{0.25cm}%
 }{}{lot}{\listoftables}{Danh sách bảng}
 
 \newcommand\bibname{Tài liệu tham khảo}
@@ -264,3 +279,8 @@
 
 % Prevent overflow of the text column at all costs.
 \sloppy
+
+\AtEndDocument{\@ifpackageloaded{hyperref}{}{\pdfextension catalog{/PageLabels<</Nums[%
+	0<</S/r>>%
+	\the\numexpr\value{firstContentPageIndex}-1\relax<</S/D>>%
+]>>/PageLayout/TwoColumnRight>>}}}

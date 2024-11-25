@@ -6,7 +6,7 @@ Trường Đại học Công nghệ, Đại học Quốc gia Hà Nội sử dụ
 ## Cách sử dụng
 
 > [!IMPORTANT]
-> Sử dụng XeTeX để xử lí mã nguồn của tài liệu, do lớp tài liệu sử dụng font TrueType và các tính năng Unicode.
+> Sử dụng LuaTeX để xử lí mã nguồn của tài liệu.
 
 Đưa các tệp `uetgraduation.cls`, `sizes.clo` và `UET logo.pdf` vào cùng thư mục với tệp LaTeX chính. Khai báo ở đầu tệp
 LaTeX chính `\documentclass{uetgraduation}`.
@@ -173,15 +173,15 @@ Các vị trí đặt là một số trong số bốn chữ cái sau viết li�
 - `b`: Vị trí cuối trang.
 - `p`: Trên một trang riêng.
 
-Dùng lệnh `\captionbox`, thường là ở trong nội dung chèn vào phía trước hoặc phía sau, để đặt một hộp phụ đề với một
-tham số là nội dung phụ đề. Lệnh `\caption` cho ra nội dung phụ đề để đặt vào trong `\captionbox` cùng với các lệnh định
-dạng khác nếu có.
+Dùng lệnh `\attachmentcaptionbox`, thường là ở trong nội dung chèn vào phía trước hoặc phía sau, để đặt một hộp phụ đề
+với một tham số là nội dung phụ đề. Lệnh `\attachmentcaption` cho ra nội dung phụ đề để đặt vào trong
+`\attachmentcaptionbox` cùng với các lệnh định dạng khác nếu có.
 
 Ví dụ kiểu đính kèm hình vẽ được định nghĩa như sau:
 
 ```latex
-\makeattachmenttype{figure}{htbp}{Hình}{}{%
-	\vspace{0.25cm}\captionbox{\setfontsize{12pt}\caption}%
+\makeattachmenttype{figure}{tbp}{Hình}{}{%
+	\vspace{0.25cm}\attachmentcaptionbox{\centering\small\attachmentcaption}%
 }{lof}{\listoffigures}{Danh sách hình vẽ}
 ```
 
