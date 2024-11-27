@@ -1,6 +1,6 @@
 % vim:syntax=tex
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{uetgraduation}[2024/11/25
+\ProvidesClass{uetgraduation}[2024/11/27
 	LaTeX document class for Vietnam National University, University of Engineering and Technology (VNU-UET)
 	graduation documents.
 ]
@@ -8,7 +8,7 @@
 \input{sizes.clo}
 
 \RequirePackage{amsmath}
-\RequirePackage[a4paper,twoside,inner=3cm,outer=2cm,top=2.5cm,bottom=2cm,includefoot,footskip=1cm]{geometry}
+\RequirePackage[a4paper,left=3cm,right=2cm,top=2.5cm,bottom=2cm,includefoot,footskip=1cm]{geometry}
 \RequirePackage{fontspec}
 \RequirePackage{graphicx}
 \RequirePackage{icomma}
@@ -99,7 +99,7 @@
 		\draw[line width=1pt,color=black,fill=none]
 			($(current page.north west)+(2.65cm,-2.15cm)$) rectangle ($(current page.south east)-(1.65cm,-2.65cm)$);
 	}%
-}{\cleardoublepage\normalsize}
+}{\clearpage\normalsize}
 \newcommand\makecovers{
 	\begin{coverpage}%
 		\centering%
@@ -150,7 +150,7 @@
 }{\normalsize}
 
 \newif\if@incontentlisting\@incontentlistingfalse
-\newenvironment{contentlisting}{\cleardoublepage\@incontentlistingtrue}{\@incontentlistingfalse\cleardoublepage}
+\newenvironment{contentlisting}{\clearpage\@incontentlistingtrue}{\@incontentlistingfalse\clearpage}
 
 \setcounter{tocdepth}{3}
 \newenvironment{contentlistingsection}[1]{%
@@ -181,7 +181,7 @@
 \renewcommand\thesection{\thechapter.\@arabic\c@section}
 \renewcommand\thesubsection{\thesection.\@arabic\c@subsection}
 \newcommand\chapter[1]{%
-	\cleardoublepage\refstepcounter{chapter}
+	\clearpage\refstepcounter{chapter}
 	\ifnum\c@chapter=1%
 		\setcounter{firstContentPageIndex}{\value{page}}%
 		\pagestyle{plain}\pagenumbering{arabic}\setcounter{page}{1}%
@@ -242,6 +242,9 @@
 	\attachmentcaptionbox{\centering\small\textbf{\attachmentcaption}}\vspace{0.25cm}%
 }{}{lot}{\listoftables}{Danh sách bảng}
 
+\def\@makefnmark{\@textsuperscript{\normalfont\@thefnmark}}
+\long\def\@makefntext#1{\parindent 1em\noindent\hb@xt@1.8em{\hss\@textsuperscript{\normalfont\@thefnmark}}#1}
+
 \newcommand\bibname{Tài liệu tham khảo}
 \newcounter{bibitem}
 \renewcommand\thebibitem{\@arabic\c@bibitem}
@@ -249,7 +252,7 @@
 \newif\if@inbibsection\@inbibsectionfalse
 \newenvironment{thebibliography}[1]{
 	\@inthebibliographytrue\settowidth\labelwidth{\@biblabel{#1}}
-	\cleardoublepage\noindent\Large\textbf{\bibname}\par\normalsize\vspace{1cm}
+	\clearpage\noindent\Large\textbf{\bibname}\par\normalsize\vspace{1cm}
 }{\@inthebibliographyfalse}
 \newenvironment{bibsection}[1]{%
 	\if@inthebibliography\else\PackageError{uetgraduation}{\`bibsection\` not in \`thebibliography\`.}{
@@ -283,4 +286,4 @@
 \AtEndDocument{\@ifpackageloaded{hyperref}{}{\pdfextension catalog{/PageLabels<</Nums[%
 	0<</S/r>>%
 	\the\numexpr\value{firstContentPageIndex}-1\relax<</S/D>>%
-]>>/PageLayout/TwoColumnRight>>}}}
+]>>/PageLayout/OneColumn>>}}}
