@@ -1,6 +1,6 @@
 % vim:syntax=tex
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{uetgraduation}[2024/11/27
+\ProvidesClass{uetgraduation}[2024/12/01
 	LaTeX document class for Vietnam National University, University of Engineering and Technology (VNU-UET)
 	graduation documents.
 ]
@@ -8,6 +8,7 @@
 \input{sizes.clo}
 
 \RequirePackage{amsmath}
+\RequirePackage{float}
 \RequirePackage[a4paper,left=3cm,right=2cm,top=2.5cm,bottom=2cm,includefoot,footskip=1cm]{geometry}
 \RequirePackage{fontspec}
 \RequirePackage{graphicx}
@@ -18,11 +19,20 @@
 \RequirePackage{tikz}
 	\usetikzlibrary{calc}
 
+\directlua{
+function custom_math_constants(fontdata)
+  fontdata.MathConstants = fontdata.MathConstants or {}
+  fontdata.MathConstants["SpaceAfterScript"] = 0
+  mathfont.math_constants(fontdata)
+end
+luatexbase.add_to_callback("mathfont.add_math_constants", custom_math_constants, "custom_math_constants")
+}
+
 \raggedbottom
 \lefthyphenmin 64
 \frenchspacing
 \setmainfont{Times New Roman}
-\mathfont{Times New Roman}
+\mathfont[upper,lower,digits]{Times New Roman}
 \pagenumbering{roman}
 \newcounter{firstContentPageIndex}
 
@@ -223,17 +233,18 @@
 % 7. List command.
 % 8. List title.
 \newcommand\makeattachmenttype[8]{
-	\newcounter{#1}[chapter]
-	\expandafter\renewcommand\csname the#1\endcsname{\thechapter.\@arabic\csname c@#1\endcsname}
-	\expandafter\newcommand\csname fps@#1\endcsname{#2}
-	\expandafter\newcommand\csname ftype@#1\endcsname{1}
-	\expandafter\newcommand\csname ext@#1\endcsname{#6}
-	\expandafter\newcommand\csname prefix@#1\endcsname{#3}
+	\newcounter{a@#1}[chapter]
+	\expandafter\renewcommand\csname thea@#1\endcsname{\thechapter.\@arabic\csname c@a@#1\endcsname}
+	\expandafter\newcommand\csname fps@a@#1\endcsname{#2}
+	\expandafter\newcommand\csname ftype@a@#1\endcsname{1}
+	\expandafter\newcommand\csname ext@a@#1\endcsname{#6}
+	\expandafter\newcommand\csname prefix@a@#1\endcsname{#3}
 	\newcommand #7{\begin{contentlistingsection}{#8}\@starttoc{#6}\end{contentlistingsection}}
-	\expandafter\newcommand\expandafter*\csname l@#1\endcsname{\@tocline{2}{0cm}}
+	\expandafter\newcommand\expandafter*\csname l@a@#1\endcsname{\@tocline{2}{0cm}}
+	\expandafter\let\csname enda@#1\endcsname\end@float
 	\newenvironment{#1}[2][]{%
-		\refstepcounter{#1}\def\@captiontext{##2}\ifx&##1&\@float{#1}\else\@float{#1}[##1]\fi#4%
-	}{#5\end@float}
+		\refstepcounter{a@#1}\def\@captiontext{##2}\ifx&##1&\@float{a@#1}\else\@float{a@#1}[##1]\fi#4%
+	}{#5\csname enda@#1\endcsname}
 }
 \makeattachmenttype{figure}{tbp}{Hình}{}{%
 	\vspace{0.25cm}\attachmentcaptionbox{\centering\small\attachmentcaption}%
@@ -242,8 +253,8 @@
 	\attachmentcaptionbox{\centering\small\textbf{\attachmentcaption}}\vspace{0.25cm}%
 }{}{lot}{\listoftables}{Danh sách bảng}
 
-\def\@makefnmark{\@textsuperscript{\normalfont\@thefnmark}}
-\long\def\@makefntext#1{\parindent 1em\noindent\hb@xt@1.8em{\hss\@textsuperscript{\normalfont\@thefnmark}}#1}
+\renewcommand\footnoterule{\kern-3\p@\hrule\@width.4\columnwidth\kern2.6\p@}
+\newcommand\@makefntext[1]{\parindent 1em\noindent\hb@xt@1.8em{\hss\@makefnmark}#1}
 
 \newcommand\bibname{Tài liệu tham khảo}
 \newcounter{bibitem}
