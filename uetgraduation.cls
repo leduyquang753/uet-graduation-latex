@@ -1,6 +1,6 @@
 % vim:syntax=tex
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{uetgraduation}[2024/12/01
+\ProvidesClass{uetgraduation}[2024/12/31
 	LaTeX document class for Vietnam National University, University of Engineering and Technology (VNU-UET)
 	graduation documents.
 ]
@@ -190,15 +190,25 @@ luatexbase.add_to_callback("mathfont.add_math_constants", custom_math_constants,
 \renewcommand\thechapter{\@arabic\c@chapter}
 \renewcommand\thesection{\thechapter.\@arabic\c@section}
 \renewcommand\thesubsection{\thesection.\@arabic\c@subsection}
+\newcommand\@chapterprefix{Chương}
+\newif\if@firstchapter\@firstchaptertrue
 \newcommand\chapter[1]{%
 	\clearpage\refstepcounter{chapter}
-	\ifnum\c@chapter=1%
+	\if@firstchapter%
 		\setcounter{firstContentPageIndex}{\value{page}}%
 		\pagestyle{plain}\pagenumbering{arabic}\setcounter{page}{1}%
+		\@firstchapterfalse%
 	\fi
-	\addcontentsline{toc}{chapter}{\protect\numberline{Chương \thechapter.}{#1}}
-	\noindent\large\textbf{Chương \thechapter.}\par
-	\noindent\huge#1\par\vspace{1cm}\normalsize%
+	\addcontentsline{toc}{chapter}{\protect\numberline{\@chapterprefix\ \thechapter.}{#1}}
+	\noindent\huge\textbf{\@chapterprefix\ \thechapter.}\par
+	\noindent\huge\textbf{#1}\par\vspace{1cm}\normalsize%
+}
+\newcommand\appendix{%
+	\par%
+	\setcounter{chapter}{0}%
+	\setcounter{section}{0}%
+	\renewcommand\@chapterprefix{Phụ lục}%
+	\renewcommand\thechapter{\@Alph\c@chapter}%
 }
 \newcommand\@makesection[2]{%
 	\if@nobreak\everypar{}\else\addpenalty\@secpenalty\vspace{#1}\fi#2\par\nobreak\@nobreaktrue\normalsize%
